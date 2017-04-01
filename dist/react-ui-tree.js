@@ -10,12 +10,14 @@ module.exports = React.createClass({
   propTypes: {
     tree: React.PropTypes.object.isRequired,
     paddingLeft: React.PropTypes.number,
-    renderNode: React.PropTypes.func.isRequired
+    renderNode: React.PropTypes.func.isRequired,
+    draggable: React.PropTypes.bool
   },
 
   getDefaultProps: function getDefaultProps() {
     return {
-      paddingLeft: 20
+      paddingLeft: 20,
+      draggable: true
     };
   },
   getInitialState: function getInitialState() {
@@ -88,6 +90,9 @@ module.exports = React.createClass({
     );
   },
   dragStart: function dragStart(id, dom, e) {
+    if (!this.props.draggable) {
+      return;
+    }
     this.dragging = {
       id: id,
       w: dom.offsetWidth,
